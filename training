@@ -1,0 +1,61 @@
+import time
+import math
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import Select
+
+
+def calc(x):
+    return str(math.log(abs(12*math.sin(int(x)))))
+
+
+chromeOptions = Options()
+chromeOptions.add_argument("--kiosk")
+# инициализируем драйвер браузера. После этой команды вы должны увидеть новое открытое окно браузера
+driver = webdriver.Chrome(chrome_options=chromeOptions)
+
+# команда time.sleep устанавливает паузу в 5 секунд, чтобы мы успели увидеть, что происходит в браузере
+
+
+
+
+# Метод get сообщает браузеру, что нужно открыть сайт по указанной ссылке
+driver.get("http://SunInJuly.github.io/execute_script.html")
+time.sleep(1)
+
+
+# button = driver.find_element_by_tag_name("button")
+# button.click()
+# assert True
+
+# .get_attribute("valuex")
+
+el1 = driver.find_element_by_id('input_value')
+# el2 = driver.find_element_by_id('num2')
+
+el1 = el1.text
+el1 = int(el1)
+y = calc(el1)
+
+driver.find_element_by_id("answer").send_keys(y)
+
+button = driver.find_element_by_id("robotCheckbox")
+driver.execute_script("return arguments[0].scrollIntoView(true);", button)
+button.click()
+
+# driver.find_element_by_id("robotCheckbox").click()
+
+button = driver.find_element_by_id("robotsRule")
+driver.execute_script("return arguments[0].scrollIntoView(true);", button)
+button.click()
+
+# driver.find_element_by_id("robotsRule").click()
+#
+# select = Select(driver.find_element_by_id('dropdown'))
+# select.select_by_value(y)
+
+button = driver.find_element_by_css_selector(".btn")
+driver.execute_script("return arguments[0].scrollIntoView(true);", button)
+button.click()
+
+# button = driver.find_element_by_css_selector(".btn").click()
